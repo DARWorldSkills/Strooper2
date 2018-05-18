@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.aprendiz.ragp.strooper2.R;
 import com.aprendiz.ragp.strooper2.fragmets.Fragmentpalabra;
 
-import java.util.Timer;
 import java.util.TimerTask;
 
 public class Juego extends AppCompatActivity {
@@ -21,7 +20,7 @@ public class Juego extends AppCompatActivity {
     TimerTask timerTask;
     int corretas, incorrectas, intentos;
     float aciertos;
-    public static double ccorretas, cincorrectas, cintentos;
+    public static int ccorretas, cincorrectas, cintentos;
     public static double caciertos;
 
 
@@ -30,6 +29,9 @@ public class Juego extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_juego);
+        if (Fragmentpalabra.intentos>1){
+            Fragmentpalabra.intentos=1;
+        }
         inizialite();
         insertDatos();
         CountDownTimer countDownTimer = new CountDownTimer(30000,1) {
@@ -49,7 +51,7 @@ public class Juego extends AppCompatActivity {
                 intentos=0;
                 Fragmentpalabra.intentos=0;
 
-                Intent intent = new Intent(Juego.this,Puntuacion.class);
+                Intent intent = new Intent(Juego.this,Resumen.class);
                 startActivity(intent);
                 finish();
             }
@@ -99,14 +101,12 @@ public class Juego extends AppCompatActivity {
             double tmp1= corretas;
             double tmp2= intentos;
             float tmp= (float) (tmp1 / (tmp2-1));
-            Toast.makeText(this, Double.toString(tmp), Toast.LENGTH_SHORT).show();
             aciertos = (tmp*100);
 
         }else{
             aciertos=0;
         }
 
-        
 
     }
 
